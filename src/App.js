@@ -1,24 +1,51 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "react-day-picker/lib/style.css";
+import "./App.css";
+import Calendar from "./CalendarSelector";
+
+class EventName extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: "",
+      list: []
+    };
+  }
+
+  render() {
+    return (
+      <div className="{event-input}">
+        <h1>Event</h1>
+        <input type={"Text"} aria-label="event-input-1"></input>
+      </div>
+    );
+  }
+}
+
+class SubmitButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: "",
+      list: []
+    };
+  }
+
+  render() {
+    return (
+      <div className="{submit-button}">
+        <button>Submit</button>
+      </div>
+    );
+  }
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <EventName />
+      <Calendar />
+      <SubmitButton />
     </div>
   );
 }

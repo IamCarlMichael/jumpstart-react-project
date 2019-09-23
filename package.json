@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "date-fns": "^2.2.1",
     "react": "^16.9.0",
+    "react-day-picker": "^7.3.2",
     "react-dom": "^16.9.0",
     "react-scripts": "3.1.2"
   },
@@ -27,5 +29,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^4.1.0",
+    "@testing-library/react": "^9.1.4",
+    "react-testing-library": "^8.0.1"
   }
 }
