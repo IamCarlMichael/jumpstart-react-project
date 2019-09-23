@@ -22,12 +22,17 @@ export default class Example extends React.Component {
       selectedDays.push(day);
     }
     this.setState({ selectedDays });
+    this.ParentAddDate();
   }
 
   removeItem(index) {
     const list = this.state.selectedDays;
     list.splice(index, 1);
     this.setState({ list });
+  }
+
+  ParentAddDate() {
+    this.props.data.dateChange(this.state.selectedDays);
   }
 
   render() {
@@ -45,6 +50,13 @@ export default class Example extends React.Component {
             </div>
           ))}
         </div>
+        {/* <div>
+          <button
+            onClick={() => this.props.data.dateChange(this.state.selectedDays)}
+          >
+            Click
+          </button>
+        </div> */}
       </div>
     );
   }
