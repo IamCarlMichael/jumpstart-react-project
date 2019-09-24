@@ -1,5 +1,37 @@
 import React from "react";
 
+class VoteEntry extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      namelist: []
+    };
+  }
+
+  addVote(item) {
+    if (this.state.names !== "" && !this.state.namelist.includes(item)) {
+      this.setState({
+        namelist: [...this.state.namelist, item]
+      });
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <div>{this.props.date}</div>
+        <button onClick={() => this.addVote(this.props.data)}>+</button>
+        <div>{this.state.namelist.length}</div>
+        <div>
+          {this.state.namelist.map(i => (
+            <div>{i}</div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+}
+
 export default class GenerateForm extends React.Component {
   constructor(props) {
     super(props);
@@ -32,25 +64,17 @@ export default class GenerateForm extends React.Component {
     return (
       <div>
         <h1>{this.state.event}</h1>
-        <div>
-          {this.state.date.map(i => (
-            <div>
-              {i.toLocaleDateString()}
-              <button onClick={() => this.addVote()}>+</button>
-              <div>{this.state.namelist.length}</div>
-              <div>
-                {this.state.namelist.map(i => (
-                  <div>{i}</div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
         <input
           type="Text"
+          placeholder="Enter Name to Vote"
           onChange={this.handleNameChange}
           value={this.state.names}
         />
+        <div>
+          {this.state.date.map(i => (
+            <VoteEntry date={i.toLocaleDateString()} data={this.state.names} />
+          ))}
+        </div>
       </div>
     );
   }

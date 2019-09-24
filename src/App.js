@@ -40,6 +40,7 @@ class MainForm extends React.Component {
         <h1>Event Form</h1>
         <input
           type="Text"
+          placeholder="Enter Event Title"
           onChange={this.handleEventNameChange}
           value={this.state.eventName}
         />
