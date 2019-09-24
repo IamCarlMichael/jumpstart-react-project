@@ -35,3 +35,87 @@ export default class MyForm extends React.Component {
     );
   }
 }
+
+// class GenerateForm extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       event: props.value,
+//       date: props.dates
+//     };
+//   }
+
+//   render() {
+//     console.log(this.state.date);
+//     return (
+//       <div>
+//         <h1>{this.state.event}</h1>
+//         <div>
+//           {this.state.date.map(i => (
+//             <div>{i.toLocaleDateString()}</div>
+//           ))}
+//         </div>
+//       </div>
+//     );
+//   }
+// }
+
+// class EventName extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       value: ""
+//     };
+//   }
+
+//   render() {
+//     return (
+//       <div className="{event-input}">
+//         <h1>Event Form</h1>
+//         <input type={"Text"} aria-label="event-input-1"></input>
+//       </div>
+//     );
+//   }
+// }
+
+// class SubmitButton extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       value: "",
+//       displayQuestions: false
+//     };
+//   }
+
+//   displayValue = () => {
+//     this.setState({
+//       displayQuestions: !this.state.displayQuestions
+//     });
+//   };
+
+//   render() {
+//     return (
+//       <div className="{submit-button}">
+//         <button onClick={this.displayValue}>Submit</button>
+//         {this.state.displayQuestions ? <EventVotePage /> : null}
+//       </div>
+//     );
+//   }
+// }
+
+// class EventVotePage extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       value: ""
+//     };
+//   }
+
+//   render() {
+//     return (
+//       <div>
+//         <h1>Hello</h1>
+//       </div>
+//     );
+//   }
+// }

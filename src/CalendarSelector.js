@@ -50,13 +50,6 @@ export default class Example extends React.Component {
             </div>
           ))}
         </div>
-        {/* <div>
-          <button
-            onClick={() => this.props.data.dateChange(this.state.selectedDays)}
-          >
-            Click
-          </button>
-        </div> */}
       </div>
     );
   }
