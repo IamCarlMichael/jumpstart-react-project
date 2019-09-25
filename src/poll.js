@@ -10,7 +10,7 @@ class VoteEntry extends React.Component {
   }
 
   addVote(item) {
-    if (this.state.names !== "" && !this.state.namelist.includes(item)) {
+    if (this.props.data !== "" && !this.state.namelist.includes(item)) {
       this.setState({
         namelist: [...this.state.namelist, item]
       });
@@ -74,11 +74,11 @@ export default class GenerateForm extends React.Component {
         <div>
           {this.state.date.map(i => (
             <div>
-              <Weather date={i} />
               <VoteEntry
                 date={i.toLocaleDateString()}
                 data={this.state.names}
               />
+              <Weather date={i} />
             </div>
           ))}
         </div>
