@@ -1,4 +1,5 @@
 import React from "react";
+import Weather from "./weather";
 
 class VoteEntry extends React.Component {
   constructor(props) {
@@ -72,7 +73,13 @@ export default class GenerateForm extends React.Component {
         />
         <div>
           {this.state.date.map(i => (
-            <VoteEntry date={i.toLocaleDateString()} data={this.state.names} />
+            <div>
+              <VoteEntry
+                date={i.toLocaleDateString()}
+                data={this.state.names}
+              />
+              <Weather />
+            </div>
           ))}
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import DayPicker, { DateUtils } from "react-day-picker";
 import "react-day-picker/lib/style.css";
+import Weather from "./weather";
 
 export default class Example extends React.Component {
   constructor(props) {
@@ -47,6 +48,7 @@ export default class Example extends React.Component {
             <div>
               {i.toLocaleDateString()}
               <button onClick={() => this.removeItem(index)}>Delete</button>
+              <Weather date={i} />
             </div>
           ))}
         </div>
