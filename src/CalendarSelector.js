@@ -12,14 +12,14 @@ export default class Example extends React.Component {
     };
   }
 
-  handleDayClick(day, { selected }) {
+  handleDayClick(day, { disabled, selected }) {
     const { selectedDays } = this.state;
     if (selected) {
       const selectedIndex = selectedDays.findIndex(selectedDay =>
         DateUtils.isSameDay(selectedDay, day)
       );
       selectedDays.splice(selectedIndex, 1);
-    } else {
+    } else if (!disabled) {
       selectedDays.push(day);
     }
     this.setState({ selectedDays });
@@ -37,9 +37,13 @@ export default class Example extends React.Component {
   }
 
   render() {
+    const disabledDays = {
+      before: new Date()
+    };
     return (
       <div>
         <DayPicker
+          disabledDays={disabledDays}
           selectedDays={this.state.selectedDays}
           onDayClick={this.handleDayClick}
         />

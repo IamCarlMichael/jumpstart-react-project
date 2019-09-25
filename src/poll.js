@@ -78,7 +78,7 @@ export default class GenerateForm extends React.Component {
                 date={i.toLocaleDateString()}
                 data={this.state.names}
               />
-              <Weather />
+              <Weather date={i} />
             </div>
           ))}
         </div>

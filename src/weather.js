@@ -1,5 +1,25 @@
 import React from "react";
 
+function search(date, myArray) {
+  for (var i = 0; i < myArray.length; i++) {
+    if (myArray[i].datetime === date.toISOString().split("T")[0]) {
+      let logo = myArray[i].weather.icon;
+      return (
+        <div>
+          <div>{myArray[i].weather.description} </div>
+          <img
+            src={`https://www.weatherbit.io/static/img/icons/${logo}.png`}
+            alt={"icon"}
+          />
+          <div>{`${myArray[i].temp}°C/${myArray[i].max_temp}°C`}</div>
+        </div>
+      );
+    }
+  }
+
+  return "Only God would know =D";
+}
+
 class Display extends React.Component {
   constructor(props) {
     super(props);
@@ -13,9 +33,7 @@ class Display extends React.Component {
     const { WeatherData, date } = this.state;
     return (
       <div>
-        <div>{WeatherData.data[0].weather.description}</div>
-        <div>{date.toISOString().split("T")[0]}</div>
-        <div>{console.log(date)}</div>
+        <div>{search(date, WeatherData.data)}</div>
       </div>
     );
   }
@@ -47,7 +65,7 @@ export default class Weather extends React.Component {
         "SG" +
         "&" +
         "key=" +
-        "f514acd2cde7436392796aaafdc30552"
+        process.env.REACT_APP_WEATHER_API_KEY
     )
       .then(res => res.json())
       .then(resInJson =>
