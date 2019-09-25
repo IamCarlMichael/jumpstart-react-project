@@ -74,11 +74,11 @@ export default class GenerateForm extends React.Component {
         <div>
           {this.state.date.map(i => (
             <div>
+              <Weather date={i} />
               <VoteEntry
                 date={i.toLocaleDateString()}
                 data={this.state.names}
               />
-              <Weather date={i} />
             </div>
           ))}
         </div>
