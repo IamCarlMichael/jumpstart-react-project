@@ -10,6 +10,7 @@
 .voter-Form {
   grid-area: voter-form;
   position: relative;
+  margin-left: 5em;
 }
 
 .event-form {
@@ -20,8 +21,7 @@
   position: absolute;
   padding: 0.1m;
   padding-left: 1em;
-  height: 100%;
-  overflow-y: scroll;
+  height: auto;
 }
 
 .event-form-options {
@@ -210,8 +210,6 @@
 .voters-options-form {
   flex-direction: column;
   flex-flow: wrap;
-  overflow-y: scroll;
-  border-style: dashed;
 }
 
 .individual-voters-option {
@@ -222,4 +220,75 @@
   border: 1px solid #ccc;
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
   border-style: dotted;
+  overflow-y: auto;
+}
+
+.vote {
+  -moz-box-shadow: inset 0px 1px 0px 0px #3dc21b;
+  -webkit-box-shadow: inset 0px 1px 0px 0px #3dc21b;
+  box-shadow: inset 0px 1px 0px 0px #3dc21b;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0.05, #44c767),
+    color-stop(1, #5cbf2a)
+  );
+  background: -moz-linear-gradient(top, #44c767 5%, #5cbf2a 100%);
+  background: -webkit-linear-gradient(top, #44c767 5%, #5cbf2a 100%);
+  background: -o-linear-gradient(top, #44c767 5%, #5cbf2a 100%);
+  background: -ms-linear-gradient(top, #44c767 5%, #5cbf2a 100%);
+  background: linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#44c767', endColorstr='#5cbf2a',GradientType=0);
+  background-color: #44c767;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border: 1px solid #18ab29;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 5px 10px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #2f6627;
+}
+.vote:hover {
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0.05, #5cbf2a),
+    color-stop(1, #44c767)
+  );
+  background: -moz-linear-gradient(top, #5cbf2a 5%, #44c767 100%);
+  background: -webkit-linear-gradient(top, #5cbf2a 5%, #44c767 100%);
+  background: -o-linear-gradient(top, #5cbf2a 5%, #44c767 100%);
+  background: -ms-linear-gradient(top, #5cbf2a 5%, #44c767 100%);
+  background: linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5cbf2a', endColorstr='#44c767',GradientType=0);
+  background-color: #5cbf2a;
+}
+
+.vote:active {
+  position: relative;
+  top: 1px;
+}
+
+.vote-counter {
+  float: right;
+  clear: right;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 25px;
+  background-color: #f5f5f5;
+  color: #808080;
+  text-align: center;
+  font: bold;
+}
+
+.vote-namelist {
+  float: right;
+  clear: right;
 }

@@ -20,12 +20,17 @@ class VoteEntry extends React.Component {
   render() {
     return (
       <div>
-        <div>{this.props.date}</div>
-        <button onClick={() => this.addVote(this.props.data)}>+</button>
-        <div>{this.state.namelist.length}</div>
+        <div className={"date"}>{this.props.date}</div>
+        <button
+          className={"vote"}
+          onClick={() => this.addVote(this.props.data)}
+        >
+          Vote!
+        </button>
+        <div className={"vote-counter"}>{this.state.namelist.length}</div>
         <div>
           {this.state.namelist.map(i => (
-            <div>{i}</div>
+            <div className={"vote-namelist"}>{i}</div>
           ))}
         </div>
       </div>

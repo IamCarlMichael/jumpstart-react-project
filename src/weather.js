@@ -21,7 +21,12 @@ function search(date, myArray) {
     }
   }
 
-  return "Only God would know =D ??☀ ☁ ☂??";
+  return (
+    <div>
+      <label>?? ¯\_(ツ)_/¯ ??</label>
+      <div className={"temp"}>??☂☁☀Only God would know☀ ☁ ☂??</div>
+    </div>
+  );
 }
 
 class Display extends React.Component {
