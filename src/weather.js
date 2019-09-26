@@ -1,23 +1,27 @@
 import React from "react";
+import "./App.css";
 
 function search(date, myArray) {
   for (var i = 0; i < myArray.length; i++) {
     if (myArray[i].datetime === date.toISOString().split("T")[0]) {
       let logo = myArray[i].weather.icon;
       return (
-        <div>
-          <div>{myArray[i].weather.description} </div>
+        <div className={"weather-content"}>
           <img
+            className={"weather-icon"}
             src={`https://www.weatherbit.io/static/img/icons/${logo}.png`}
             alt={"icon"}
           />
-          <div>{`${myArray[i].temp}°C/${myArray[i].max_temp}°C`}</div>
+          <div>{myArray[i].weather.description} </div>
+          <div
+            className={"temp"}
+          >{`Low / High: ${myArray[i].temp}°C / ${myArray[i].max_temp}°C`}</div>
         </div>
       );
     }
   }
 
-  return "Only God would know =D";
+  return "Only God would know =D ??☀ ☁ ☂??";
 }
 
 class Display extends React.Component {
@@ -41,7 +45,7 @@ class Display extends React.Component {
 
 class Loading extends React.Component {
   render() {
-    return <div>Loading......</div>;
+    return <div className={"spinner"}></div>;
   }
 }
 
@@ -79,7 +83,7 @@ export default class Weather extends React.Component {
     const { WeatherData, date } = this.state;
     return (
       <div>
-        <div>The Weather Forecast is:</div>
+        <div>Weather Forecast:</div>
         <div>
           {WeatherData ? (
             <Display data={WeatherData} date={date} />

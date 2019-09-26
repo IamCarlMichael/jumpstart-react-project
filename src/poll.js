@@ -63,8 +63,9 @@ export default class GenerateForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={"voter-Form"}>
         <h1>{this.state.event}</h1>
+        <label>Who are you? </label>
         <input
           type="Text"
           placeholder="Enter Name to Vote"
@@ -72,15 +73,17 @@ export default class GenerateForm extends React.Component {
           value={this.state.names}
         />
         <div>
-          {this.state.date.map(i => (
-            <div>
-              <VoteEntry
-                date={i.toLocaleDateString()}
-                data={this.state.names}
-              />
-              <Weather date={i} />
-            </div>
-          ))}
+          <div className={"voters-options-form"}>
+            {this.state.date.map(i => (
+              <div className={"individual-voters-option"}>
+                <VoteEntry
+                  date={i.toLocaleDateString()}
+                  data={this.state.names}
+                />
+                <Weather date={i} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     );

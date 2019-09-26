@@ -2,6 +2,7 @@ import React from "react";
 import DayPicker, { DateUtils } from "react-day-picker";
 import "react-day-picker/lib/style.css";
 import Weather from "./weather";
+import "./App.css";
 
 export default class Example extends React.Component {
   constructor(props) {
@@ -49,10 +50,19 @@ export default class Example extends React.Component {
         />
         <div>
           {this.state.selectedDays.map((i, index) => (
-            <div>
-              {i.toLocaleDateString()}
-              <button onClick={() => this.removeItem(index)}>Delete</button>
-              <Weather date={i} />
+            <div className="event-form-options">
+              <div>
+                <button
+                  className={"delete-button"}
+                  onClick={() => this.removeItem(index)}
+                >
+                  Delete
+                </button>
+              </div>
+              <label>
+                <date className={"date"}>{i.toLocaleDateString()}</date>
+                <Weather date={i} />
+              </label>
             </div>
           ))}
         </div>
