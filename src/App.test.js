@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { render, fireEvent, getByTestId } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
 it("renders without crashing", () => {
@@ -124,10 +124,10 @@ describe("poll-form", () => {
   });
 });
 
-describe("weather-api", () => {
-  it("should show the weather icon and forecast", () => {
-    expect(getByTestId("background")).toHaveStyle(
-      `background-image: url(${props.image})`
-    );
+describe("weather-js-file", () => {
+  it("renders without crashing", () => {
+    const div = document.createElement("div");
+    ReactDOM.render(<App />, div);
+    ReactDOM.unmountComponentAtNode(div);
   });
 });

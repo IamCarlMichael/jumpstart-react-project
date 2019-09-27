@@ -55,17 +55,6 @@ export default class GenerateForm extends React.Component {
     });
   };
 
-  addVote() {
-    if (
-      this.state.names !== "" &&
-      !this.state.namelist.includes(this.state.names)
-    ) {
-      this.setState({
-        namelist: [...this.state.namelist, this.state.names]
-      });
-    }
-  }
-
   render() {
     return (
       <div className={"voter-Form"}>
