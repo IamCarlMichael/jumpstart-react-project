@@ -10,7 +10,7 @@ class MainForm extends React.Component {
     this.state = {
       eventName: "",
       eventInput: "",
-      selectedDates: [""],
+      selectedDates: [],
       displayVoteApp: false
     };
   }
@@ -27,7 +27,7 @@ class MainForm extends React.Component {
         displayVoteApp: !this.state.displayVoteApp,
         eventInput: this.state.eventName
       });
-    }
+    } else return {};
   };
 
   dateChange(item) {
@@ -48,6 +48,7 @@ class MainForm extends React.Component {
           <label>Event Name: </label>
           <input
             type="Text"
+            aria-label={"input-event-box"}
             placeholder="What's your big occasion?"
             onChange={this.handleEventNameChange}
             value={this.state.eventName}

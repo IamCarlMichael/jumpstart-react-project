@@ -73,6 +73,8 @@ export default class GenerateForm extends React.Component {
         <label>Who are you? </label>
         <input
           type="Text"
+          aria-label={"input-name-box"}
+          data-testid="username-input"
           placeholder="Enter Name to Vote"
           onChange={this.handleNameChange}
           value={this.state.names}

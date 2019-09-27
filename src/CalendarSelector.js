@@ -60,7 +60,7 @@ export default class Example extends React.Component {
                 </button>
               </div>
               <label>
-                <date className={"date"}>{i.toLocaleDateString()}</date>
+                <div className={"date"}>{i.toLocaleDateString()}</div>
                 <Weather date={i} />
               </label>
             </div>
