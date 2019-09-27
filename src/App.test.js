@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, waitForElement } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
 it("renders without crashing", () => {
@@ -125,9 +125,33 @@ describe("poll-form", () => {
 });
 
 describe("weather-js-file", () => {
-  it("renders without crashing", () => {
-    const div = document.createElement("div");
-    ReactDOM.render(<App />, div);
-    ReactDOM.unmountComponentAtNode(div);
+  it("should render out the weather forecast when selecting a date ", () => {
+    const { getByText, getByLabelText } = render(<App />);
+    const addMemberInput = getByLabelText("input-event-box");
+    fireEvent.change(addMemberInput, { target: { value: "123" } });
+    fireEvent.click(getByText("29"));
+    expect(getByText("Weather Forecast:")).toBeInTheDocument();
+  });
+
+  it("should render out the weather forecast when selecting a date (actual weather forecast)", async () => {
+    const { getByText, getByLabelText, getByTestId } = render(<App />);
+    const addMemberInput = getByLabelText("input-event-box");
+    fireEvent.change(addMemberInput, { target: { value: "123" } });
+    fireEvent.click(getByText("29"));
+    const countspan = await waitForElement(() =>
+      getByTestId("weather-forecast")
+    );
+    expect(countspan).toBeInTheDocument();
+  });
+
+  it("should render not knowing the weather forecast when selecting a date (when no weather forecast available)", async () => {
+    const { getByText, getByLabelText } = render(<App />);
+    const addMemberInput = getByLabelText("Next Month");
+    fireEvent.click(addMemberInput);
+    fireEvent.click(getByText("29"));
+    const countspan = await waitForElement(() =>
+      getByText("??☂☁☀Only God would know☀ ☁ ☂??")
+    );
+    expect(countspan).toBeInTheDocument();
   });
 });

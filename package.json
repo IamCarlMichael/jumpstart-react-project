@@ -40,7 +40,8 @@
     "coveragePathIgnorePatterns": [
       "./src/serviceWorker.js",
       "./src/index.js",
-      "./asyncexample.js"
+      "./asyncexample.js",
+      "./test-weather-data.js"
     ]
   }
 }

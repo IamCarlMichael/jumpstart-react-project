@@ -6,7 +6,7 @@ function search(date, myArray) {
     if (myArray[i].datetime === date.toISOString().split("T")[0]) {
       let logo = myArray[i].weather.icon;
       return (
-        <div className={"weather-content"}>
+        <div className={"weather-content"} data-testid="weather-forecast">
           <img
             className={"weather-icon"}
             src={`https://www.weatherbit.io/static/img/icons/${logo}.png`}
