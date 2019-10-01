@@ -34,6 +34,7 @@
     "@testing-library/jest-dom": "^4.1.0",
     "@testing-library/react": "^9.2.0",
     "jest-fetch-mock": "^2.1.2",
+    "mockdate": "^2.0.5",
     "react-testing-library": "^8.0.1"
   },
   "jest": {
@@ -41,7 +42,8 @@
       "./src/serviceWorker.js",
       "./src/index.js",
       "./asyncexample.js",
-      "./test-weather-data.js"
+      "./test-weather-data.js",
+      "./src/mockFetch.js"
     ]
   }
 }

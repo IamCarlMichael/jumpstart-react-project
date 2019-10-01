@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { render, fireEvent, waitForElement } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
 it("renders without crashing", () => {
@@ -28,8 +28,8 @@ describe("event-form", () => {
 
   it("should allow users to select a date as an option", () => {
     const { getByText } = render(<App />);
-    fireEvent.click(getByText("28"));
-    expect(getByText("9/28/2019")).toBeInTheDocument();
+    fireEvent.click(getByText("30"));
+    expect(getByText("10/30/2019")).toBeInTheDocument();
   });
 
   it("should allow users to select multiple dates as options", () => {
@@ -37,29 +37,30 @@ describe("event-form", () => {
     fireEvent.click(getByText("28"));
     fireEvent.click(getByText("29"));
     fireEvent.click(getByText("30"));
-    expect(getByText("9/28/2019")).toBeInTheDocument();
-    expect(getByText("9/29/2019")).toBeInTheDocument();
-    expect(getByText("9/30/2019")).toBeInTheDocument();
+    expect(getByText("10/28/2019")).toBeInTheDocument();
+    expect(getByText("10/29/2019")).toBeInTheDocument();
+    expect(getByText("10/30/2019")).toBeInTheDocument();
   });
 
   it("should allow users to delete dates that were mistakenly selected as options", () => {
     const { getByText, queryByText } = render(<App />);
-    fireEvent.click(getByText("28"));
-    expect(getByText("9/28/2019")).toBeInTheDocument();
+    fireEvent.click(getByText("30"));
+    expect(getByText("10/30/2019")).toBeInTheDocument();
     fireEvent.click(getByText("Delete"));
-    expect(queryByText("9/28/2019")).toBe(null);
+    expect(queryByText("10/30/2019")).toBe(null);
   });
 
   it("should allow users to delete dates that were mistakenly selected as options on the Calendar itself by re-clicking the selected date", () => {
     const { getByText, queryByText } = render(<App />);
-    fireEvent.click(getByText("28"));
-    expect(getByText("9/28/2019")).toBeInTheDocument();
-    fireEvent.click(getByText("28"));
-    expect(queryByText("9/28/2019")).toBe(null);
+    fireEvent.click(getByText("30"));
+    expect(getByText("10/30/2019")).toBeInTheDocument();
+    fireEvent.click(getByText("30"));
+    expect(queryByText("10/30/2019")).toBe(null);
   });
 
   it("should not allow users to select dates that have passed", () => {
-    const { getByText, queryByText } = render(<App />);
+    const { getByText, queryByText, getByLabelText } = render(<App />);
+    fireEvent.click(getByLabelText("Previous Month"));
     fireEvent.click(getByText("20"));
     expect(queryByText("9/20/2019")).toBe(null);
   });
@@ -69,14 +70,14 @@ describe("event-form", () => {
     const addMemberInput = getByLabelText("input-event-box");
     fireEvent.change(addMemberInput, { target: { value: "123" } });
     fireEvent.click(getByText("Submit"));
-    expect(queryByText("9/20/2019")).toBe(null);
+    expect(queryByText("10/20/2019")).toBe(null);
   });
 
   it("should allow users to submit after filling in the event name AND selecting the dates", () => {
     const { getByText, getByLabelText } = render(<App />);
     const addMemberInput = getByLabelText("input-event-box");
     fireEvent.change(addMemberInput, { target: { value: "123" } });
-    fireEvent.click(getByText("29"));
+    fireEvent.click(getByText("30"));
     fireEvent.click(getByText("Submit"));
     expect(getByText("0")).toBeInTheDocument();
   });
@@ -87,7 +88,7 @@ describe("poll-form", () => {
     const { getByText, getByLabelText } = render(<App />);
     const addMemberInput = getByLabelText("input-event-box");
     fireEvent.change(addMemberInput, { target: { value: "123" } });
-    fireEvent.click(getByText("29"));
+    fireEvent.click(getByText("30"));
     fireEvent.click(getByText("Submit"));
     const addMemberInput3 = getByLabelText("input-name-box");
     fireEvent.change(addMemberInput3, { target: { value: "John" } });
@@ -99,7 +100,7 @@ describe("poll-form", () => {
     const { getByText, getByLabelText } = render(<App />);
     const addMemberInput = getByLabelText("input-event-box");
     fireEvent.change(addMemberInput, { target: { value: "123" } });
-    fireEvent.click(getByText("29"));
+    fireEvent.click(getByText("30"));
     fireEvent.click(getByText("Submit"));
     fireEvent.click(getByText("Vote!"));
     expect(getByText("0")).toBeInTheDocument();
@@ -109,7 +110,7 @@ describe("poll-form", () => {
     const { getByText, getByLabelText } = render(<App />);
     const addMemberInput = getByLabelText("input-event-box");
     fireEvent.change(addMemberInput, { target: { value: "123" } });
-    fireEvent.click(getByText("29"));
+    fireEvent.click(getByText("30"));
     fireEvent.click(getByText("Submit"));
     const addMemberInput3 = getByLabelText("input-name-box");
     fireEvent.change(addMemberInput3, { target: { value: "John" } });
@@ -121,37 +122,5 @@ describe("poll-form", () => {
     fireEvent.change(addMemberInput3, { target: { value: "Peter" } });
     fireEvent.click(getByText("Vote!"));
     expect(getByText("Peter")).toBeInTheDocument();
-  });
-});
-
-describe("weather-js-file", () => {
-  it("should render out the weather forecast when selecting a date ", () => {
-    const { getByText, getByLabelText } = render(<App />);
-    const addMemberInput = getByLabelText("input-event-box");
-    fireEvent.change(addMemberInput, { target: { value: "123" } });
-    fireEvent.click(getByText("29"));
-    expect(getByText("Weather Forecast:")).toBeInTheDocument();
-  });
-
-  it("should render out the weather forecast when selecting a date (actual weather forecast)", async () => {
-    const { getByText, getByLabelText, getByTestId } = render(<App />);
-    const addMemberInput = getByLabelText("input-event-box");
-    fireEvent.change(addMemberInput, { target: { value: "123" } });
-    fireEvent.click(getByText("29"));
-    const countspan = await waitForElement(() =>
-      getByTestId("weather-forecast")
-    );
-    expect(countspan).toBeInTheDocument();
-  });
-
-  it("should render not knowing the weather forecast when selecting a date (when no weather forecast available)", async () => {
-    const { getByText, getByLabelText } = render(<App />);
-    const addMemberInput = getByLabelText("Next Month");
-    fireEvent.click(addMemberInput);
-    fireEvent.click(getByText("29"));
-    const countspan = await waitForElement(() =>
-      getByText("??☂☁☀Only God would know☀ ☁ ☂??")
-    );
-    expect(countspan).toBeInTheDocument();
   });
 });

@@ -77,11 +77,9 @@ export default class Weather extends React.Component {
         process.env.REACT_APP_WEATHER_API_KEY
     )
       .then(res => res.json())
-      .then(resInJson =>
-        this.setState(state => {
-          return { WeatherData: resInJson };
-        })
-      );
+      .then(resInJson => {
+        this.setState({ WeatherData: resInJson });
+      });
   }
 
   render() {

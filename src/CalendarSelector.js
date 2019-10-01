@@ -50,7 +50,7 @@ export default class Example extends React.Component {
         />
         <div>
           {this.state.selectedDays.map((i, index) => (
-            <div className="event-form-options">
+            <div key={index} className="event-form-options">
               <div>
                 <button
                   className={"delete-button"}

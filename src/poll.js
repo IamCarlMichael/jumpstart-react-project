@@ -30,7 +30,9 @@ class VoteEntry extends React.Component {
         <div className={"vote-counter"}>{this.state.namelist.length}</div>
         <div>
           {this.state.namelist.map(i => (
-            <div className={"vote-namelist"}>{i}</div>
+            <div key={i} className={"vote-namelist"}>
+              {i}
+            </div>
           ))}
         </div>
       </div>
@@ -44,14 +46,14 @@ export default class GenerateForm extends React.Component {
     this.state = {
       event: props.value,
       date: props.dates,
-      names: "",
+      name: "",
       namelist: []
     };
   }
 
   handleNameChange = text => {
     this.setState({
-      names: text.target.value
+      name: text.target.value
     });
   };
 
@@ -66,15 +68,15 @@ export default class GenerateForm extends React.Component {
           data-testid="username-input"
           placeholder="Enter Name to Vote"
           onChange={this.handleNameChange}
-          value={this.state.names}
+          value={this.state.name}
         />
         <div>
           <div className={"voters-options-form"}>
             {this.state.date.map(i => (
-              <div className={"individual-voters-option"}>
+              <div key={i} className={"individual-voters-option"}>
                 <VoteEntry
                   date={i.toLocaleDateString()}
-                  data={this.state.names}
+                  data={this.state.name}
                 />
                 <Weather date={i} />
               </div>
