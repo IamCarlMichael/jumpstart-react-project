@@ -33,16 +33,16 @@ class Display extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      WeatherData: props.data,
+      weatherData: props.data,
       date: props.date
     };
   }
 
   render() {
-    const { WeatherData, date } = this.state;
+    const { weatherData, date } = this.state;
     return (
       <div>
-        <div>{search(date, WeatherData.data)}</div>
+        <div>{search(date, weatherData.data)}</div>
       </div>
     );
   }
@@ -58,7 +58,7 @@ export default class Weather extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      WeatherData: null,
+      weatherData: null,
       date: props.date
     };
   }
@@ -78,18 +78,18 @@ export default class Weather extends React.Component {
     )
       .then(res => res.json())
       .then(resInJson => {
-        this.setState({ WeatherData: resInJson });
+        this.setState({ weatherData: resInJson });
       });
   }
 
   render() {
-    const { WeatherData, date } = this.state;
+    const { weatherData, date } = this.state;
     return (
       <div>
         <div>Weather Forecast:</div>
         <div>
-          {WeatherData ? (
-            <Display data={WeatherData} date={date} />
+          {weatherData ? (
+            <Display data={weatherData} date={date} />
           ) : (
             <Loading />
           )}{" "}
