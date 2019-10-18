@@ -232,13 +232,13 @@
     left top,
     left bottom,
     color-stop(0.05, #44c767),
-    color-stop(1, #5cbf2a)
+    color-stop(1, #f24537)
   );
-  background: -moz-linear-gradient(top, #44c767 5%, #5cbf2a 100%);
-  background: -webkit-linear-gradient(top, #44c767 5%, #5cbf2a 100%);
-  background: -o-linear-gradient(top, #44c767 5%, #5cbf2a 100%);
-  background: -ms-linear-gradient(top, #44c767 5%, #5cbf2a 100%);
-  background: linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
+  background: -moz-linear-gradient(top, #44c767 5%, #f24537 100%);
+  background: -webkit-linear-gradient(top, #44c767 5%, #f24537 100%);
+  background: -o-linear-gradient(top, #44c767 5%, #f24537 100%);
+  background: -ms-linear-gradient(top, #44c767 5%, #f24537 100%);
+  background: linear-gradient(to bottom, #44c767 5%, #f24537 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#44c767', endColorstr='#5cbf2a',GradientType=0);
   background-color: #44c767;
   -moz-border-radius: 10px;
@@ -260,16 +260,16 @@
     linear,
     left top,
     left bottom,
-    color-stop(0.05, #5cbf2a),
+    color-stop(0.05, #f24537),
     color-stop(1, #44c767)
   );
-  background: -moz-linear-gradient(top, #5cbf2a 5%, #44c767 100%);
-  background: -webkit-linear-gradient(top, #5cbf2a 5%, #44c767 100%);
-  background: -o-linear-gradient(top, #5cbf2a 5%, #44c767 100%);
-  background: -ms-linear-gradient(top, #5cbf2a 5%, #44c767 100%);
-  background: linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);
+  background: -moz-linear-gradient(top, #f24537 5%, #44c767 100%);
+  background: -webkit-linear-gradient(top, #f24537 5%, #44c767 100%);
+  background: -o-linear-gradient(top, #f24537 5%, #44c767 100%);
+  background: -ms-linear-gradient(top, #f24537 5%, #44c767 100%);
+  background: linear-gradient(to bottom, #f24537 5%, #44c767 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5cbf2a', endColorstr='#44c767',GradientType=0);
-  background-color: #5cbf2a;
+  background-color: #f24537;
 }
 
 .vote:active {
@@ -291,4 +291,59 @@
 .vote-namelist {
   float: right;
   clear: right;
+}
+
+.date-picker-button {
+  background: #f24537;
+  color: #fff;
+  position: relative;
+  cursor: pointer;
+  margin-bottom: 10px;
+  border: 2px solid #f24537;
+  font-size: 14px;
+  padding: 12px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -o-border-radius: 3px;
+  width: 300px;
+}
+
+.input-group {
+  position: relative;
+  border: 2px solid #cdd7e1;
+  margin-bottom: 10px;
+  display: block !important;
+  width: 300px;
+  border: none;
+}
+
+.date-picker-button .date-picker-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: 0;
+  background: #f24537;
+  border: none;
+  width: 300px;
+  padding-left: 55px;
+}
+
+.fa.fa-angle-down {
+  float: right;
+  color: white;
+  font-size: 20px !important;
+  font-weight: 600;
+  top: 0px !important;
+  position: relative;
+  margin-right: 20px;
+}
+
+.fa-calendar-o {
+  color: white !important;
+  z-index: 1;
+  top: 0px !important;
+  position: relative !important;
 }

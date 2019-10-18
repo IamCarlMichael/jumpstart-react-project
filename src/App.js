@@ -3,6 +3,8 @@ import "react-day-picker/lib/style.css";
 import "./App.css";
 import Calendar from "./CalendarSelector";
 import PollGenerator from "./poll.js";
+import axios from "axios";
+let datesArrToDb = [];
 
 class MainForm extends React.Component {
   constructor(props) {
@@ -11,14 +13,50 @@ class MainForm extends React.Component {
       eventName: "",
       eventInput: "",
       selectedDates: [],
+      voteExpiryDate: "",
       displayVoteApp: false
     };
   }
+
+  handleVoteExpiryChange = date => {
+    this.setState({
+      voteExpiryDate: new Date(date.target.value)
+    });
+  };
 
   handleEventNameChange = text => {
     this.setState({
       eventName: text.target.value
     });
+  };
+
+  DateFormat(selectedDatesArray) {
+    selectedDatesArray.forEach(element => {
+      datesArrToDb.push({ date: element, names: [] });
+    });
+  }
+
+  submit = async () => {
+    console.log(this.state.voteExpiryDate);
+    datesArrToDb.length = 0;
+    this.DateFormat(this.state.selectedDates);
+    await axios({
+      method: "post",
+      url: "http://localhost:3003/events/new",
+      data: {
+        eventName: this.state.eventName,
+        dates: datesArrToDb,
+        dateCreated: new Date(),
+        dateExpires: this.state.voteExpiryDate,
+        organiserName: "John"
+      }
+    })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   display = () => {
@@ -53,9 +91,17 @@ class MainForm extends React.Component {
             onChange={this.handleEventNameChange}
             value={this.state.eventName}
           />
+          <p></p>
+          <label>Vote Expiry: </label>
+          <input
+            type="date"
+            onChange={this.handleVoteExpiryChange}
+            min={new Date().toISOString().split("T")[0]}
+            className={"date-picker-button input-group"}
+          />
           <h4>And When?</h4>
           <p> Select your Dates: </p>
-          <button className={"submit-button"} onClick={this.display}>
+          <button className={"submit-button"} onClick={this.submit}>
             Submit
           </button>
           <Calendar

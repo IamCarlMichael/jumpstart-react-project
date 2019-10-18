@@ -1,8 +1,6 @@
 import React from "react";
 import "./App.css";
 
-console.log("This is awesome");
-
 function search(date, myArray) {
   for (var i = 0; i < myArray.length; i++) {
     if (myArray[i].datetime === date.toISOString().split("T")[0]) {
