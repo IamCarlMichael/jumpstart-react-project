@@ -1,124 +1,30 @@
 import React from "react";
-import "react-day-picker/lib/style.css";
 import "./App.css";
-import Calendar from "./CalendarSelector";
-import PollGenerator from "./poll.js";
-import axios from "axios";
-let datesArrToDb = [];
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { CreateEvent } from "./CreateEvent";
+import VotePage from "./VotePage";
 
-class MainForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      eventName: "",
-      eventInput: "",
-      selectedDates: [],
-      voteExpiryDate: "",
-      displayVoteApp: false
-    };
-  }
-
-  handleVoteExpiryChange = date => {
-    this.setState({
-      voteExpiryDate: new Date(date.target.value)
-    });
-  };
-
-  handleEventNameChange = text => {
-    this.setState({
-      eventName: text.target.value
-    });
-  };
-
-  DateFormat(selectedDatesArray) {
-    selectedDatesArray.forEach(element => {
-      datesArrToDb.push({ date: element, names: [] });
-    });
-  }
-
-  submit = async () => {
-    console.log(this.state.voteExpiryDate);
-    datesArrToDb.length = 0;
-    this.DateFormat(this.state.selectedDates);
-    await axios({
-      method: "post",
-      url: "http://localhost:3003/events/new",
-      data: {
-        eventName: this.state.eventName,
-        dates: datesArrToDb,
-        dateCreated: new Date(),
-        dateExpires: this.state.voteExpiryDate,
-        organiserName: "John"
-      }
-    })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-
-  display = () => {
-    if (this.state.eventName !== "" && this.state.selectedDates.length !== 0) {
-      this.setState({
-        displayVoteApp: !this.state.displayVoteApp,
-        eventInput: this.state.eventName
-      });
-    } else return {};
-  };
-
-  dateChange(item) {
-    this.setState({ selectedDates: item });
-  }
-
-  render() {
-    return (
-      <div className={"main-page"}>
-        {this.state.displayVoteApp ? (
-          <PollGenerator
-            value={this.state.eventInput}
-            dates={this.state.selectedDates}
-          />
-        ) : null}
-        <div className={"event-form"}>
-          <h1>Event Form</h1>
-          <label>Event Name: </label>
-          <input
-            type="Text"
-            aria-label={"input-event-box"}
-            placeholder="What's your big occasion?"
-            onChange={this.handleEventNameChange}
-            value={this.state.eventName}
-          />
-          <p></p>
-          <label>Vote Expiry: </label>
-          <input
-            type="date"
-            onChange={this.handleVoteExpiryChange}
-            min={new Date().toISOString().split("T")[0]}
-            className={"date-picker-button input-group"}
-          />
-          <h4>And When?</h4>
-          <p> Select your Dates: </p>
-          <button className={"submit-button"} onClick={this.submit}>
-            Submit
-          </button>
-          <Calendar
-            data={{
-              dateChange: this.dateChange.bind(this)
-            }}
-          />
-        </div>
+function Header() {
+  return (
+    <div className="nav-links">
+      <h1>My Event App</h1>
+      <div className="links">
+        <Link to="/">Login</Link>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 function App() {
   return (
-    <div>
-      <MainForm />
+    <div className={"App"}>
+      <Router>
+        <Header />
+        <Switch>
+          <Route exact path="/" component={CreateEvent} />
+          <Route path="/votepage" component={VotePage} />
+        </Switch>
+      </Router>
     </div>
   );
 }
