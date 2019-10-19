@@ -1,7 +1,9 @@
 import React from "react";
 import Weather from "./weather";
+import axios from "axios";
 
 let result;
+let resultIso;
 var str = document.location.href;
 str.slice(0, str.lastIndexOf("/") + 1);
 var uri = str.slice(str.lastIndexOf("/") + 1);
@@ -10,14 +12,46 @@ class VoteEntry extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      namelist: []
+      namelist: [],
+      voted: false
     };
+  }
+
+  addVotesToDB = async (dateString, nameToAdd) => {
+    const url =
+      "http://localhost:3003/events/" +
+      uri +
+      "/dates/" +
+      dateString +
+      "/users/" +
+      nameToAdd;
+    await axios
+      .patch(url)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  };
+
+  removeVote(item) {
+    let rmvVote = this.state.namelist.filter(function(arr) {
+      return arr !== item;
+    });
+    this.setState({
+      namelist: rmvVote,
+      voted: false
+    });
   }
 
   addVote(item) {
     if (this.props.data !== "" && !this.state.namelist.includes(item)) {
+      console.log(this.props.isoDates);
+      this.addVotesToDB(this.props.isoDates, item);
       this.setState({
-        namelist: [...this.state.namelist, item]
+        namelist: [...this.state.namelist, item],
+        voted: true
       });
     }
   }
@@ -25,13 +59,23 @@ class VoteEntry extends React.Component {
   render() {
     return (
       <div>
-        <div className={"date"}>{this.props.date}</div>
-        <button
-          className={"vote"}
-          onClick={() => this.addVote(this.props.data)}
-        >
-          Vote!
-        </button>
+        <div className={"date"}>{this.props.date.toLocaleDateString()}</div>
+        {this.state.voted ? (
+          <button
+            className={"remove_vote"}
+            onClick={() => this.removeVote(this.props.data)}
+          >
+            Remove Vote!
+          </button>
+        ) : (
+          <button
+            className={"vote"}
+            onClick={() => this.addVote(this.props.data)}
+          >
+            Vote!
+          </button>
+        )}
+
         <div className={"vote-counter"}>{this.state.namelist.length}</div>
         <div>
           {this.state.namelist.map(i => (
@@ -53,7 +97,8 @@ export default class GenerateForm extends React.Component {
       date: [],
       name: "",
       namelist: [],
-      data: null
+      data: null,
+      isoDbdates: []
     };
   }
 
@@ -72,17 +117,21 @@ export default class GenerateForm extends React.Component {
     result = Arr.map(({ date }) => new Date(date));
   }
 
+  transformDatesArriso(Arr) {
+    resultIso = [];
+    resultIso = Arr.map(({ date }) => date);
+  }
   renderMyData() {
     if (uri !== "") {
-      console.log(uri);
       fetch("http://localhost:3003/events/" + uri)
         .then(response => response.json())
         .then(responseJson => {
           this.transformDatesArr(responseJson[0].dates);
-          console.log(result);
+          this.transformDatesArriso(responseJson[0].dates);
           this.setState({
             date: result,
-            event: responseJson[0].eventName
+            event: responseJson[0].eventName,
+            isoDbdates: resultIso
           });
         })
         .catch(error => {
@@ -109,8 +158,9 @@ export default class GenerateForm extends React.Component {
             {this.state.date.map(i => (
               <div key={i} className={"individual-voters-option"}>
                 <VoteEntry
-                  date={i.toLocaleDateString()}
+                  date={i}
                   data={this.state.name}
+                  isoDates={this.state.isoDbdates[this.state.date.indexOf(i)]}
                 />
                 <Weather date={i} />
               </div>
