@@ -4,6 +4,7 @@ import axios from "axios";
 
 let result;
 let resultIso;
+let resultNames;
 var str = document.location.href;
 str.slice(0, str.lastIndexOf("/") + 1);
 var uri = str.slice(str.lastIndexOf("/") + 1);
@@ -12,10 +13,28 @@ class VoteEntry extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      namelist: [],
+      namelist: this.props.namesProp,
       voted: false
     };
   }
+
+  removeVotesfromDB = async (dateString, nameToRemove) => {
+    const url =
+      "http://localhost:3003/events/" +
+      uri +
+      "/dates/" +
+      dateString +
+      "/users/" +
+      nameToRemove;
+    await axios
+      .delete(url)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  };
 
   addVotesToDB = async (dateString, nameToAdd) => {
     const url =
@@ -39,6 +58,7 @@ class VoteEntry extends React.Component {
     let rmvVote = this.state.namelist.filter(function(arr) {
       return arr !== item;
     });
+    this.removeVotesfromDB(this.props.isoDates, item);
     this.setState({
       namelist: rmvVote,
       voted: false
@@ -51,6 +71,10 @@ class VoteEntry extends React.Component {
       this.addVotesToDB(this.props.isoDates, item);
       this.setState({
         namelist: [...this.state.namelist, item],
+        voted: true
+      });
+    } else if (this.props.data !== "") {
+      this.setState({
         voted: true
       });
     }
@@ -98,7 +122,8 @@ export default class GenerateForm extends React.Component {
       name: "",
       namelist: [],
       data: null,
-      isoDbdates: []
+      isoDbdates: [],
+      nameArr: ""
     };
   }
 
@@ -112,6 +137,10 @@ export default class GenerateForm extends React.Component {
     this.renderMyData();
   }
 
+  transformNamesArr(Arr) {
+    resultNames = [];
+    resultNames = Arr.map(({ names }) => names);
+  }
   transformDatesArr(Arr) {
     result = [];
     result = Arr.map(({ date }) => new Date(date));
@@ -128,10 +157,12 @@ export default class GenerateForm extends React.Component {
         .then(responseJson => {
           this.transformDatesArr(responseJson[0].dates);
           this.transformDatesArriso(responseJson[0].dates);
+          this.transformNamesArr(responseJson[0].dates);
           this.setState({
             date: result,
             event: responseJson[0].eventName,
-            isoDbdates: resultIso
+            isoDbdates: resultIso,
+            nameArr: resultNames
           });
         })
         .catch(error => {
@@ -161,6 +192,7 @@ export default class GenerateForm extends React.Component {
                   date={i}
                   data={this.state.name}
                   isoDates={this.state.isoDbdates[this.state.date.indexOf(i)]}
+                  namesProp={this.state.nameArr[this.state.date.indexOf(i)]}
                 />
                 <Weather date={i} />
               </div>
