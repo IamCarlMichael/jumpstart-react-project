@@ -1,6 +1,7 @@
 import React from "react";
 import Weather from "./weather";
 import axios from "axios";
+import NoMatch from "./NoMatch";
 
 let result;
 let resultIso;
@@ -123,7 +124,8 @@ export default class GenerateForm extends React.Component {
       namelist: [],
       data: null,
       isoDbdates: [],
-      nameArr: ""
+      nameArr: "",
+      pageNotFound: false
     };
   }
 
@@ -153,52 +155,82 @@ export default class GenerateForm extends React.Component {
   renderMyData() {
     if (uri !== "") {
       fetch("http://localhost:3003/events/" + uri)
-        .then(response => response.json())
+        .then(response => {
+          console.log(response);
+          if (response.status === 500) {
+            this.setState({
+              pageNotFound: true
+            });
+          } else {
+            return response.json();
+          }
+        })
         .then(responseJson => {
-          this.transformDatesArr(responseJson[0].dates);
-          this.transformDatesArriso(responseJson[0].dates);
-          this.transformNamesArr(responseJson[0].dates);
-          this.setState({
-            date: result,
-            event: responseJson[0].eventName,
-            isoDbdates: resultIso,
-            nameArr: resultNames
-          });
+          if (responseJson.length === 0) {
+            this.setState({
+              pageNotFound: true
+            });
+          } else {
+            this.transformDatesArr(responseJson[0].dates);
+            this.transformDatesArriso(responseJson[0].dates);
+            this.transformNamesArr(responseJson[0].dates);
+            this.setState({
+              date: result,
+              event: responseJson[0].eventName,
+              isoDbdates: resultIso,
+              nameArr: resultNames,
+              pageNotFound: false
+            });
+          }
         })
         .catch(error => {
           console.error(error);
         });
+    } else {
+      this.setState({
+        pageNotFound: true
+      });
     }
   }
 
   render() {
     return (
-      <div className={"voter-Form"}>
-        <h1>{this.state.event}</h1>
-        <label>Who are you? </label>
-        <input
-          type="Text"
-          aria-label={"input-name-box"}
-          data-testid="username-input"
-          placeholder="Enter Name to Vote"
-          onChange={this.handleNameChange}
-          value={this.state.name}
-        />
-        <div>
-          <div className={"voters-options-form"}>
-            {this.state.date.map(i => (
-              <div key={i} className={"individual-voters-option"}>
-                <VoteEntry
-                  date={i}
-                  data={this.state.name}
-                  isoDates={this.state.isoDbdates[this.state.date.indexOf(i)]}
-                  namesProp={this.state.nameArr[this.state.date.indexOf(i)]}
-                />
-                <Weather date={i} />
-              </div>
-            ))}
+      <div>
+        {this.state.pageNotFound ? (
+          <div>
+            <NoMatch />
           </div>
-        </div>
+        ) : (
+          <div className={"voter-Form"}>
+            <h1>{this.state.event}</h1>
+            <label>Who are you? </label>
+            <input
+              type="Text"
+              aria-label={"input-name-box"}
+              data-testid="username-input"
+              placeholder="Enter Name to Vote"
+              onChange={this.handleNameChange}
+              value={this.state.name}
+            />
+            <div>
+              <div className={"voters-options-form"}>
+                {this.state.date.map(i => (
+                  <div key={i} className={"individual-voters-option"}>
+                    <VoteEntry
+                      date={i}
+                      data={this.state.name}
+                      isoDates={
+                        this.state.isoDbdates[this.state.date.indexOf(i)]
+                      }
+                      namesProp={this.state.nameArr[this.state.date.indexOf(i)]}
+                    />
+                    <Weather date={i} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }

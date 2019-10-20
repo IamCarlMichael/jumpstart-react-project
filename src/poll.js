@@ -1,46 +1,5 @@
 import React from "react";
-// import Weather from "./weather";
-// import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
-// class VoteEntry extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       namelist: []
-//     };
-//   }
-
-//   addVote(item) {
-//     if (this.props.data !== "" && !this.state.namelist.includes(item)) {
-//       this.setState({
-//         namelist: [...this.state.namelist, item]
-//       });
-//     }
-//   }
-
-//   render() {
-//     return (
-//       <div>
-//         <div className={"date"}>{this.props.date}</div>
-//         <button
-//           className={"vote"}
-//           onClick={() => this.addVote(this.props.data)}
-//         >
-//           Vote!
-//         </button>
-//         <div className={"vote-counter"}>{this.state.namelist.length}</div>
-//         <div>
-//           {this.state.namelist.map(i => (
-//             <div key={i} className={"vote-namelist"}>
-//               {i}
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     );
-//   }
-// }
-
+import { Link } from "react-router-dom";
 export default class GenerateForm extends React.Component {
   constructor(props) {
     super(props);
@@ -62,11 +21,27 @@ export default class GenerateForm extends React.Component {
   render() {
     return (
       <div className={"voter-Form"}>
-        <h1>{this.state.event}</h1>
-        <label>Your Voting Link can be found here</label>
-        <p>
-          <a href={this.state.url}>{this.state.url}</a>
-        </p>
+        {this.props.status ? (
+          <div>
+            <h1>{this.state.event}</h1>
+            <label>Your Voting Link can be found here</label>
+            <p>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href={this.state.url}
+              >
+                {this.state.url}
+              </a>
+            </p>
+            <Link to="/Home">Go to Home</Link>
+          </div>
+        ) : (
+          <div>
+            <h1>Please Sign in to Create an event</h1>
+            <label>Click on the login to go to login page</label>
+          </div>
+        )}
       </div>
     );
   }

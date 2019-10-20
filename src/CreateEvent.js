@@ -39,7 +39,15 @@ class MainForm extends React.Component {
   }
 
   submit = async () => {
-    if (this.state.eventName !== "" && this.state.selectedDates.length !== 0) {
+    if (!this.props.status) {
+      this.setState({
+        displayVoteApp: !this.state.displayVoteApp
+      });
+    } else if (
+      this.props.status &&
+      this.state.eventName !== "" &&
+      this.state.selectedDates.length !== 0
+    ) {
       datesArrToDb.length = 0;
       this.DateFormat(this.state.selectedDates);
       await axios({
@@ -88,6 +96,7 @@ class MainForm extends React.Component {
             value={this.state.eventInput}
             dates={this.state.selectedDates}
             id={this.state.res}
+            status={this.props.status}
           />
         ) : null}
         <div className={"event-form"}>
@@ -124,10 +133,4 @@ class MainForm extends React.Component {
   }
 }
 
-export const CreateEvent = () => {
-  return (
-    <div>
-      <MainForm />
-    </div>
-  );
-};
+export default MainForm;

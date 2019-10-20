@@ -396,3 +396,7 @@
   position: relative;
   top: 1px;
 }
+
+.nav-links {
+  padding: 1em;
+}
