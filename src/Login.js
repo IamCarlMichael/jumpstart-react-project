@@ -4,8 +4,8 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { Link } from "react-router-dom";
 
 firebase.initializeApp({
-  apiKey: "AIzaSyBtIJQ_ZXpk5UTijNH7WQtHRB5I7bfUxKc",
-  authDomain: "event-app-e4568.firebaseapp.com"
+  apiKey: "",
+  authDomain: ""
 });
 
 class Login extends React.Component {
