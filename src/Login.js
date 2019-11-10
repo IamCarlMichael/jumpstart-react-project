@@ -4,8 +4,8 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { Link } from "react-router-dom";
 
 firebase.initializeApp({
-  apiKey: "",
-  authDomain: ""
+  apiKey: "AIzaSyBtIJQ_ZXpk5UTijNH7WQtHRB5I7bfUxKc",
+  authDomain: "event-app-e4568.firebaseapp.com"
 });
 
 class Login extends React.Component {
@@ -20,11 +20,7 @@ class Login extends React.Component {
     signInFlow: "popup",
     signInOptions: [
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      firebase.auth.PhoneAuthProvider.PROVIDER_ID,
-      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-      firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-      firebase.auth.GithubAuthProvider.PROVIDER_ID,
-      firebase.auth.EmailAuthProvider.PROVIDER_ID
+      firebase.auth.PhoneAuthProvider.PROVIDER_ID
     ],
     callbacks: {
       signInSuccess: () => false
@@ -32,13 +28,23 @@ class Login extends React.Component {
   };
 
   componentDidMount = () => {
-    firebase.auth().onAuthStateChanged(user => {
-      this.setState({ isSignedIn: !!user });
-      if (!!user) {
-        this.props.update();
-      }
-    });
+    const checkSavedState = localStorage.getItem("loggedIn");
+    if (checkSavedState === true) {
+      this.setState({ isSignedIn: checkSavedState });
+    } else {
+      firebase.auth().onAuthStateChanged(user => {
+        this.setState({ isSignedIn: !!user });
+        if (!!user) {
+          this.props.update(!!user);
+        }
+      });
+    }
   };
+
+  logoutHandler() {
+    firebase.auth().signOut();
+    localStorage.removeItem("loggedIn");
+  }
 
   render() {
     return (
@@ -47,7 +53,6 @@ class Login extends React.Component {
         {this.state.isSignedIn ? (
           <span>
             <div>Signed In!</div>
-            <button onClick={() => firebase.auth().signOut()}>Sign out!</button>
             <Link to="/Home">Go to My Events</Link>
             <h1>Welcome {firebase.auth().currentUser.displayName}</h1>
           </span>

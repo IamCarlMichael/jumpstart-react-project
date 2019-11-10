@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import firebase from "firebase";
 
 class DeleteEvent extends React.Component {
   constructor(props) {
@@ -63,11 +62,6 @@ class MyEvents extends React.Component {
     this.getEvents();
   };
 
-  signOutButton() {
-    firebase.auth().signOut();
-    window.location.href = "http://localhost:3000";
-  }
-
   getEvents = async (dateString, nameToRemove) => {
     const url = "http://localhost:3003/events/";
     await axios
@@ -111,13 +105,6 @@ class MyEvents extends React.Component {
           ))}
         </div>
         <Link to="/newevent">Create new event</Link>
-        <button
-          onClick={() => {
-            this.signOutButton();
-          }}
-        >
-          Sign out!
-        </button>
       </div>
     );
   }

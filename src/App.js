@@ -16,9 +16,23 @@ class Main extends React.Component {
     };
   }
 
-  update() {
-    this.setState({ loggedIn: !this.state.loggedIn });
+  update(loginBoolean) {
+    this.setState({ loggedIn: loginBoolean });
+    localStorage.setItem("loggedIn", loginBoolean);
   }
+
+  componentDidMount = () => {
+    try {
+      const checkSavedState = localStorage.getItem("loggedIn");
+      if (checkSavedState === null) {
+        this.setState({ loggedIn: false });
+      } else {
+        this.setState({ loggedIn: checkSavedState });
+      }
+    } catch (err) {
+      return err.message;
+    }
+  };
 
   render() {
     return (

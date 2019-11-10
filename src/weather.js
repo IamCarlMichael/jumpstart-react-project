@@ -40,6 +40,7 @@ class Display extends React.Component {
 
   render() {
     const { weatherData, date } = this.state;
+    console.log(weatherData);
     return (
       <div>
         <div>{search(date, weatherData.data)}</div>
@@ -74,7 +75,8 @@ export default class Weather extends React.Component {
         "SG" +
         "&" +
         "key=" +
-        process.env.REACT_APP_WEATHER_API_KEY
+        "f514acd2cde7436392796aaafdc30552"
+      // process.env.REACT_APP_WEATHER_API_KEY
     )
       .then(res => res.json())
       .then(resInJson => {
