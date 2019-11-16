@@ -7,6 +7,7 @@ import MyEvents from "./MyEvents";
 import Login from "./Login";
 import NoMatch from "./NoMatch";
 import Header from "./Header";
+require("dotenv").config({ path: __dirname + ".env" });
 
 class Main extends React.Component {
   constructor(props) {

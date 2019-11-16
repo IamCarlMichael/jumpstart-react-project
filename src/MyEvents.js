@@ -12,12 +12,8 @@ class DeleteEvent extends React.Component {
     const url = "http://localhost:3003/events/" + this.props.Id;
     axios
       .delete(url)
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.error(err);
-      });
+      .then(res => {})
+      .catch(err => {});
     this.props.updatelist(this.props.Id, this.props.name);
   };
 
@@ -81,7 +77,7 @@ class MyEvents extends React.Component {
         }
       })
       .catch(err => {
-        console.error(err);
+        return err.message;
       });
   };
 

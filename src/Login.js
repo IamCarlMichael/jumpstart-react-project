@@ -4,8 +4,8 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { Link } from "react-router-dom";
 
 firebase.initializeApp({
-  apiKey: "AIzaSyBtIJQ_ZXpk5UTijNH7WQtHRB5I7bfUxKc",
-  authDomain: "event-app-e4568.firebaseapp.com"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN
 });
 
 class Login extends React.Component {
@@ -40,6 +40,7 @@ class Login extends React.Component {
             firebase.auth().currentUser.displayName,
             firebase.auth().currentUser.uid
           );
+          console.log(firebase.auth().currentUser);
           this.props.history.push("/home");
         }
       });

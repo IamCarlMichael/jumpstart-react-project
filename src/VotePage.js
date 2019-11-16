@@ -29,11 +29,9 @@ class VoteEntry extends React.Component {
       nameToRemove;
     await axios
       .delete(url)
-      .then(res => {
-        console.log(res);
-      })
+      .then(res => {})
       .catch(err => {
-        console.error(err);
+        return err.message;
       });
   };
 
@@ -47,11 +45,9 @@ class VoteEntry extends React.Component {
       nameToAdd;
     await axios
       .patch(url)
-      .then(res => {
-        console.log(res);
-      })
+      .then(res => {})
       .catch(err => {
-        console.error(err);
+        return err.message;
       });
   };
 
@@ -68,7 +64,6 @@ class VoteEntry extends React.Component {
 
   addVote(item) {
     if (this.props.data !== "" && !this.state.namelist.includes(item)) {
-      console.log(this.props.isoDates);
       this.addVotesToDB(this.props.isoDates, item);
       this.setState({
         namelist: [...this.state.namelist, item],
@@ -156,7 +151,6 @@ export default class GenerateForm extends React.Component {
     if (uri !== "") {
       fetch("http://localhost:3003/events/" + uri)
         .then(response => {
-          console.log(response);
           if (response.status === 500) {
             this.setState({
               pageNotFound: true
@@ -184,7 +178,7 @@ export default class GenerateForm extends React.Component {
           }
         })
         .catch(error => {
-          console.error(error);
+          return error.message;
         });
     } else {
       this.setState({

@@ -78,7 +78,7 @@ export default class GenerateForm extends React.Component {
             event: this.state.data[0].eventName,
             date: this.state.data[0].dates
           }).catch(error => {
-            console.error(error);
+            return error.message;
           })
         );
     }

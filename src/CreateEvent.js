@@ -16,7 +16,8 @@ class MainForm extends React.Component {
       voteExpiryDate: "",
       displayVoteApp: false,
       redirectToReferrer: false,
-      res: ""
+      res: "",
+      buttonDisabled: false
     };
   }
   componentDidMount = () => {
@@ -47,12 +48,15 @@ class MainForm extends React.Component {
   submit = async () => {
     if (!this.props.status) {
       this.setState({
-        displayVoteApp: !this.state.displayVoteApp
+        displayVoteApp: true,
+        buttonDisabled: true
       });
     } else if (
       this.props.status &&
       this.state.eventName !== "" &&
-      this.state.selectedDates.length !== 0
+      this.state.selectedDates.length !== 0 &&
+      this.state.buttonDisabled !== true &&
+      this.state.displayVoteApp !== true
     ) {
       datesArrToDb.length = 0;
       this.DateFormat(this.state.selectedDates);
@@ -69,7 +73,6 @@ class MainForm extends React.Component {
         }
       })
         .then(res => {
-          console.log(res.data._id);
           this.setState({
             displayVoteApp: !this.state.displayVoteApp,
             eventInput: this.state.eventName,
@@ -77,7 +80,7 @@ class MainForm extends React.Component {
           });
         })
         .catch(error => {
-          console.log(error);
+          return error.message;
         });
     }
   };
