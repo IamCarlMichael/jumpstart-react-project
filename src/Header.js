@@ -7,20 +7,29 @@ export default class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: this.props.status
+      loggedIn: this.props.status,
+      user: this.props.username
     };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.status !== prevState.status) {
-      return { loggedIn: nextProps.status };
-    } else return null;
+    if (
+      nextProps.status !== prevState.status ||
+      nextProps.username !== prevState.username
+    ) {
+      return { loggedIn: nextProps.status, user: nextProps.username };
+    } else return;
   }
 
   componentDidMount = () => {
     try {
+      let checkUsername = localStorage.getItem("username");
       const checkSavedState = localStorage.getItem("loggedIn");
-      this.setState({ loggedIn: checkSavedState });
+      if (checkUsername === "null") {
+        this.setState({ loggedIn: checkSavedState, user: null });
+      } else {
+        this.setState({ loggedIn: checkSavedState, user: checkUsername });
+      }
     } catch (err) {
       return err.message;
     }
@@ -28,7 +37,7 @@ export default class Header extends React.Component {
 
   signOutButton() {
     firebase.auth().signOut();
-    localStorage.removeItem("loggedIn");
+    localStorage.clear();
     window.location.href = "http://localhost:3000";
   }
 
@@ -39,7 +48,14 @@ export default class Header extends React.Component {
         <div className="links">
           {this.state.loggedIn ? (
             <div>
-              <div>Welcome</div>
+              <div>
+                {typeof this.state.user === "object" ||
+                (typeof this.state.user === "string" &&
+                  this.state.user === "null")
+                  ? `Welcome User`
+                  : `Welcome ${this.state.user}`}
+                <Link to="/Home">Home Page</Link>
+              </div>
               <button
                 onClick={() => {
                   this.signOutButton();

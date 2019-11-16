@@ -19,6 +19,12 @@ class MainForm extends React.Component {
       res: ""
     };
   }
+  componentDidMount = () => {
+    const checkSavedState = localStorage.getItem("loggedIn");
+    if (checkSavedState === null || checkSavedState === false) {
+      this.props.history.push("/");
+    }
+  };
 
   handleVoteExpiryChange = date => {
     this.setState({
@@ -58,7 +64,8 @@ class MainForm extends React.Component {
           dates: datesArrToDb,
           dateCreated: new Date(),
           voteExpires: this.state.voteExpiryDate,
-          organiserName: "John"
+          organiserName: localStorage.getItem("username"),
+          uid: localStorage.getItem("userId")
         }
       })
         .then(res => {

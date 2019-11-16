@@ -12,22 +12,27 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false
+      loggedIn: false,
+      username: "",
+      userId: ""
     };
   }
 
-  update(loginBoolean) {
-    this.setState({ loggedIn: loginBoolean });
+  update(loginBoolean, name, Id) {
+    this.setState({ loggedIn: loginBoolean, username: name, userId: Id });
     localStorage.setItem("loggedIn", loginBoolean);
+    localStorage.setItem("username", name);
+    localStorage.setItem("userId", Id);
   }
 
   componentDidMount = () => {
     try {
       const checkSavedState = localStorage.getItem("loggedIn");
+      const checkUsername = localStorage.getItem("username");
       if (checkSavedState === null) {
         this.setState({ loggedIn: false });
       } else {
-        this.setState({ loggedIn: checkSavedState });
+        this.setState({ loggedIn: checkSavedState, username: checkUsername });
       }
     } catch (err) {
       return err.message;
@@ -38,7 +43,7 @@ class Main extends React.Component {
     return (
       <div className={"App"}>
         <Router>
-          <Header status={this.state.loggedIn} />
+          <Header status={this.state.loggedIn} username={this.state.username} />
           <Switch>
             <Route
               exact

@@ -26,11 +26,7 @@ export default class GenerateForm extends React.Component {
             <h1>{this.state.event}</h1>
             <label>Your Voting Link can be found here</label>
             <p>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href={this.state.url}
-              >
+              <a rel="noopener noreferrer" href={this.state.url}>
                 {this.state.url}
               </a>
             </p>

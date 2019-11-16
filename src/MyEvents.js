@@ -59,11 +59,17 @@ class MyEvents extends React.Component {
   }
 
   componentDidMount = () => {
-    this.getEvents();
+    const checkSavedState = localStorage.getItem("loggedIn");
+    if (checkSavedState === null || checkSavedState === false) {
+      this.props.history.push("/");
+    } else {
+      this.getEvents();
+    }
   };
 
   getEvents = async (dateString, nameToRemove) => {
-    const url = "http://localhost:3003/events/";
+    const userId = localStorage.getItem("userId");
+    const url = "http://localhost:3003/events/user/" + userId;
     await axios
       .get(url)
       .then(res => {
@@ -84,11 +90,14 @@ class MyEvents extends React.Component {
       <div>
         <h1>Home</h1>
         <h2>My Created events</h2>
+        <p>
+          {" "}
+          <Link to="/newevent">Create new event</Link>{" "}
+        </p>
         <div>
           {this.state.events.map(i => (
             <div key={i}>
               <a
-                target="_blank"
                 rel="noopener noreferrer"
                 href={`http://localhost:3000/votepage/${
                   this.state.eventId[this.state.events.indexOf(i)]
@@ -104,7 +113,6 @@ class MyEvents extends React.Component {
             </div>
           ))}
         </div>
-        <Link to="/newevent">Create new event</Link>
       </div>
     );
   }

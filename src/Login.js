@@ -35,7 +35,12 @@ class Login extends React.Component {
       firebase.auth().onAuthStateChanged(user => {
         this.setState({ isSignedIn: !!user });
         if (!!user) {
-          this.props.update(!!user);
+          this.props.update(
+            !!user,
+            firebase.auth().currentUser.displayName,
+            firebase.auth().currentUser.uid
+          );
+          this.props.history.push("/home");
         }
       });
     }
@@ -43,13 +48,13 @@ class Login extends React.Component {
 
   logoutHandler() {
     firebase.auth().signOut();
-    localStorage.removeItem("loggedIn");
+    localStorage.clear();
   }
 
   render() {
     return (
       <div className="App">
-        <h1>Event App Home Page</h1>
+        <h1>Event App Login Page</h1>
         {this.state.isSignedIn ? (
           <span>
             <div>Signed In!</div>
