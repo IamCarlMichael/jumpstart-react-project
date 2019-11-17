@@ -2,6 +2,7 @@ import React from "react";
 import firebase from "firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { Link } from "react-router-dom";
+import "./Login.css";
 
 firebase.initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -20,7 +21,10 @@ class Login extends React.Component {
     signInFlow: "popup",
     signInOptions: [
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      firebase.auth.PhoneAuthProvider.PROVIDER_ID
+      {
+        provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+        defaultCountry: "SG"
+      }
     ],
     callbacks: {
       signInSuccess: () => false
@@ -55,7 +59,7 @@ class Login extends React.Component {
   render() {
     return (
       <div className="App">
-        <h1>Event App Login Page</h1>
+        <h1 className={"LoginTitle"}>Event App Login Page</h1>
         {this.state.isSignedIn ? (
           <span>
             <div>Signed In!</div>
@@ -66,6 +70,7 @@ class Login extends React.Component {
           <StyledFirebaseAuth
             uiConfig={this.uiConfig}
             firebaseAuth={firebase.auth()}
+            className={"loginOptions"}
           />
         )}
       </div>

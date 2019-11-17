@@ -2,6 +2,7 @@ import React from "react";
 import Weather from "./weather";
 import axios from "axios";
 import NoMatch from "./NoMatch";
+import "./VotePage.css";
 
 let result;
 let resultIso;
@@ -196,7 +197,7 @@ export default class GenerateForm extends React.Component {
           </div>
         ) : (
           <div className={"voter-Form"}>
-            <h1>{this.state.event}</h1>
+            <h1 className={"voter-Form-Title"}>{this.state.event}</h1>
             <label>Who are you? </label>
             <input
               type="Text"

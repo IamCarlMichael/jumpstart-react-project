@@ -4,6 +4,7 @@ import "./App.css";
 import Calendar from "./CalendarSelector";
 import PollGenerator from "./poll.js";
 import axios from "axios";
+
 let datesArrToDb = [];
 
 class MainForm extends React.Component {
@@ -110,7 +111,7 @@ class MainForm extends React.Component {
           />
         ) : null}
         <div className={"event-form"}>
-          <h1>Event Form</h1>
+          <h1 className={"eventFormHeader"}>Event Form</h1>
           <label>Event Name: </label>
           <input
             type="Text"

@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Anton|Russo+One+display=swap");
+@import url("https://fonts.googleapis.com/css?family=Indie+Flower&display=swap");
 
 .main-page {
   display: grid;
@@ -359,10 +360,10 @@
 .links a {
   display: flex;
   color: white;
-  align-items: center;
+  align-items: right;
   align-content: flex-end;
-  margin: 1em;
-  padding: 1em;
+  margin: 0.3em;
+  padding: 0.3em;
 }
 
 .links div {
@@ -399,4 +400,8 @@
 
 .nav-links {
   padding: 1em;
+}
+
+.eventFormHeader {
+  font-family: "Indie Flower", cursive;
 }

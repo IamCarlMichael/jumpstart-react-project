@@ -1,0 +1,12 @@
+@import url("https://fonts.googleapis.com/css?family=Indie+Flower&display=swap");
+
+.voter-Form-Title {
+  font-family: "Indie Flower", cursive;
+  font-weight: bold;
+}
+
+.vote-namelist {
+  font-family: "Indie Flower", cursive;
+  font-weight: bold;
+  font-size: 1.4rem;
+}

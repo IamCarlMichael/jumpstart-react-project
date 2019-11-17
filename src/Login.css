@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css?family=Indie+Flower&display=swap");
+
+.LoginTitle {
+  text-align: center;
+  font-family: "Indie Flower", cursive;
+}
+
+.loginOptions {
+  border: 2px ridge rgba(164, 144, 112, 0.53);
+  border-radius: 15px;
+  width: fit-content;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}

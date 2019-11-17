@@ -54,9 +54,14 @@ export default class Header extends React.Component {
                   this.state.user === "null")
                   ? `Welcome User`
                   : `Welcome ${this.state.user}`}
-                <Link to="/Home">Home Page</Link>
+                <div>
+                  <Link className={"HomePageLink"} to="/Home">
+                    Home Page
+                  </Link>
+                </div>
               </div>
               <button
+                className={"SignOutButton"}
                 onClick={() => {
                   this.signOutButton();
                 }}

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "./MyEvents.css";
 
 class DeleteEvent extends React.Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class DeleteEvent extends React.Component {
     return (
       <div>
         <button
+          className={"deleteEventButton"}
           onClick={() => {
             this.deleteThisEvent();
           }}
@@ -84,20 +86,21 @@ class MyEvents extends React.Component {
   render() {
     return (
       <div>
-        <h1>Home</h1>
-        <h2>My Created events</h2>
-        <p>
+        <h1 className={"homePageTitle"}>Home</h1>
+        <h2 className={"homePageHeader"}>My Created events</h2>
+        <p className={"newEvent"}>
           {" "}
-          <Link to="/newevent">Create new event</Link>{" "}
+          <Link to="/newevent"> + Create new event</Link>{" "}
         </p>
         <div>
           {this.state.events.map(i => (
-            <div key={i}>
+            <div key={i} className={"singleEvent"}>
               <a
                 rel="noopener noreferrer"
                 href={`http://localhost:3000/votepage/${
                   this.state.eventId[this.state.events.indexOf(i)]
                 }`}
+                className={"eventTitle"}
               >
                 {i}
               </a>
