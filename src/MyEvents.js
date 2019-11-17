@@ -10,7 +10,7 @@ class DeleteEvent extends React.Component {
   }
 
   deleteThisEvent = async () => {
-    const url = "http://localhost:3003/events/" + this.props.Id;
+    const url = process.env.REACT_APP_BASE_URL + "events/" + this.props.Id;
     axios
       .delete(url)
       .then(res => {})
@@ -67,7 +67,7 @@ class MyEvents extends React.Component {
 
   getEvents = async (dateString, nameToRemove) => {
     const userId = localStorage.getItem("userId");
-    const url = "http://localhost:3003/events/user/" + userId;
+    const url = process.env.REACT_APP_BASE_URL + "events/user/" + userId;
     await axios
       .get(url)
       .then(res => {
@@ -97,7 +97,7 @@ class MyEvents extends React.Component {
             <div key={i} className={"singleEvent"}>
               <a
                 rel="noopener noreferrer"
-                href={`http://localhost:3000/votepage/${
+                href={`${process.env.REACT_APP_BASE_URL_FRONTEND}votepage/${
                   this.state.eventId[this.state.events.indexOf(i)]
                 }`}
                 className={"eventTitle"}

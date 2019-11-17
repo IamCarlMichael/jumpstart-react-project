@@ -22,7 +22,8 @@ class VoteEntry extends React.Component {
 
   removeVotesfromDB = async (dateString, nameToRemove) => {
     const url =
-      "http://localhost:3003/events/" +
+      process.env.REACT_APP_BASE_URL +
+      "events/" +
       uri +
       "/dates/" +
       dateString +
@@ -38,7 +39,8 @@ class VoteEntry extends React.Component {
 
   addVotesToDB = async (dateString, nameToAdd) => {
     const url =
-      "http://localhost:3003/events/" +
+      process.env.REACT_APP_BASE_URL +
+      "events/" +
       uri +
       "/dates/" +
       dateString +
@@ -150,7 +152,7 @@ export default class GenerateForm extends React.Component {
   }
   renderMyData() {
     if (uri !== "") {
-      fetch("http://localhost:3003/events/" + uri)
+      fetch(process.env.REACT_APP_BASE_URL + "events/" + uri)
         .then(response => {
           if (response.status === 500) {
             this.setState({

@@ -48,7 +48,7 @@ export default class GenerateForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: "http://localhost:3000/votepage/" + props.id,
+      url: process.env.REACT_APP_BASE_URL + "votepage/" + props.id,
       event: "",
       date: [],
       name: "",
@@ -68,7 +68,7 @@ export default class GenerateForm extends React.Component {
 
   renderMyData() {
     if (uri !== "") {
-      fetch("http://localhost:3003/events/" + uri)
+      fetch(process.env.REACT_APP_BASE_URL + "events/" + uri)
         .then(response => response.json())
         .then(responseJson => {
           this.setState({ data: responseJson });

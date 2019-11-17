@@ -4,7 +4,7 @@ export default class GenerateForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      url: "http://localhost:3000/votepage/" + props.id,
+      url: process.env.REACT_APP_BASE_URL_FRONTEND + "votepage/" + props.id,
       event: props.value,
       date: props.dates,
       name: "",

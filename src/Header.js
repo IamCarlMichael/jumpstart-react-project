@@ -38,7 +38,7 @@ export default class Header extends React.Component {
   signOutButton() {
     firebase.auth().signOut();
     localStorage.clear();
-    window.location.href = "http://localhost:3000";
+    window.location.href = process.env.REACT_APP_BASE_URL_FRONTEND;
   }
 
   render() {

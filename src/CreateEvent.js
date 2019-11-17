@@ -63,7 +63,7 @@ class MainForm extends React.Component {
       this.DateFormat(this.state.selectedDates);
       await axios({
         method: "post",
-        url: "http://localhost:3003/events/new",
+        url: process.env.REACT_APP_BASE_URL + "events/new",
         data: {
           eventName: this.state.eventName,
           dates: datesArrToDb,
